@@ -1,10 +1,15 @@
 package com.team404.bookstore.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class OrderEntity
-{
+public class OrderEntity {
     private int id;
     private int userid;
     private Timestamp generationtime;
@@ -16,109 +21,92 @@ public class OrderEntity
     private double aftertaxprice;
     private int amount;
 
-    public int getId()
-    {
+    //    @Id
+//    @GeneratedValue(generator="increment")
+//    @GenericGenerator(name="increment", strategy = "increment")
+//    @Column(name = "id")
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getUserid()
-    {
+    public int getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid)
-    {
+    public void setUserid(int userid) {
         this.userid = userid;
     }
 
-    public Timestamp getGenerationtime()
-    {
+    public Timestamp getGenerationtime() {
         return generationtime;
     }
 
-    public void setGenerationtime(Timestamp generationtime)
-    {
+    public void setGenerationtime(Timestamp generationtime) {
         this.generationtime = generationtime;
     }
 
-    public double getTotalprice()
-    {
+    public double getTotalprice() {
         return totalprice;
     }
 
-    public void setTotalprice(double totalprice)
-    {
+    public void setTotalprice(double totalprice) {
         this.totalprice = totalprice;
     }
 
-    public Integer getAddressid()
-    {
+    public Integer getAddressid() {
         return addressid;
     }
 
-    public void setAddressid(Integer addressid)
-    {
+    public void setAddressid(Integer addressid) {
         this.addressid = addressid;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public double getShipping()
-    {
+    public double getShipping() {
         return shipping;
     }
 
-    public void setShipping(double shipping)
-    {
+    public void setShipping(double shipping) {
         this.shipping = shipping;
     }
 
-    public double getTax()
-    {
+    public double getTax() {
         return tax;
     }
 
-    public void setTax(double tax)
-    {
+    public void setTax(double tax) {
         this.tax = tax;
     }
 
-    public double getAftertaxprice()
-    {
+    public double getAftertaxprice() {
         return aftertaxprice;
     }
 
-    public void setAftertaxprice(double aftertaxprice)
-    {
+    public void setAftertaxprice(double aftertaxprice) {
         this.aftertaxprice = aftertaxprice;
     }
 
-    public int getAmount()
-    {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount)
-    {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderEntity that = (OrderEntity) o;
@@ -135,8 +123,7 @@ public class OrderEntity
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(id, userid, generationtime, totalprice, addressid, status, shipping, tax, aftertaxprice, amount);
     }
 }

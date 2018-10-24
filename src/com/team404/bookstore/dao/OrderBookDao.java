@@ -1,49 +1,47 @@
 package com.team404.bookstore.dao;
 
-import com.team404.bookstore.entity.CategoryEntity;
+import com.team404.bookstore.entity.OrderBookEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class CategoryDao {
-    private static SessionFactory sessionFactory;
+public class OrderBookDao {
+    private static SessionFactory sessionFactory =
+            new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
-    public CategoryEntity getCategoryById(int id) {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public void AddOrderBook(OrderBookEntity orderBookEntity) {
         Session session = sessionFactory.openSession();
-
-        CategoryEntity categoryEntity = null;
         Transaction transaction = null;
 
         try {
             transaction = session.beginTransaction();
-            categoryEntity = (CategoryEntity) session.get(CategoryEntity.class, id);
+            session.save(orderBookEntity);
             transaction.commit();
-        } catch ( HibernateException e) {
-            if (transaction!=null) transaction.rollback();
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
-        return categoryEntity;
     }
 
-    public List<CategoryEntity> ListCategory() {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public List<OrderBookEntity> GetOrderBookByOid(int orderid) {
         Session session = sessionFactory.openSession();
-
         Transaction transaction = null;
-        List<CategoryEntity> list = null;
+        List<OrderBookEntity> list = null;
         try {
             transaction = session.beginTransaction();
-            list = session.createQuery("FROM CategoryEntity ").list();
+            Query query = session.createQuery("FROM OrderBookEntity WHERE orderid = :orderid");
+            query.setParameter("orderid", orderid);
+            list = query.list();
             transaction.commit();
         } catch (HibernateException e) {
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();

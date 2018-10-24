@@ -1,6 +1,7 @@
 package com.team404.bookstore.controllers;
 
 import com.team404.bookstore.entity.CountEntity;
+import com.team404.bookstore.service.OrderProcessService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,28 +17,14 @@ public class ConfirmOrderServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         // every 5th request is refused on the website
-
-        HttpSession hs = request.getSession();
-        CountEntity count = (CountEntity) hs.getAttribute("counter");
-        if (count == null) {
-            CountEntity ce = new CountEntity();
-            ce.setCount(1);
-            hs.setAttribute("counter", ce);
+        int oid = Integer.parseInt(request.getParameter("oid"));
+        OrderProcessService orderProcessService = new OrderProcessService();
+        boolean flag = orderProcessService.confirmOrder(oid);
+        if (flag) {
+            response.sendRedirect("/pages/success.jsp");
         } else {
-            count.setCount(count.getCount() + 1);
-            hs.setAttribute("counter", count);
+            response.sendRedirect("/pages/fail.jsp");
         }
-        //get counter from the DB count table
-     //   CountEntity counter = getCount();
-        // if the counter.getCount() % 5 == 0, Credit Card Authorization Failed
-
-
-
-        // else % 5 != 0, Order Successfully Completed
-        //update new count into the DB count table
-
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

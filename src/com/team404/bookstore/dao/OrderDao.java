@@ -1,7 +1,6 @@
 package com.team404.bookstore.dao;
 
-import com.team404.bookstore.entity.BookEntity;
-import com.team404.bookstore.entity.UserEntity;
+import com.team404.bookstore.entity.OrderEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,42 +10,41 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class BookDao {
-    private static SessionFactory sessionFactory;
+public class OrderDao {
+    private static SessionFactory sessionFactory =
+            new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
-    public List<BookEntity> ListBook() {
-        List<BookEntity> list = null;
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public int AddOrder (OrderEntity orderEntity) {
         Session session = sessionFactory.openSession();
-
+        int id = 0;
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            list = session.createQuery("FROM BookEntity").list();
+            session.save(orderEntity);
             transaction.commit();
+            id = orderEntity.getId();
         } catch (HibernateException e) {
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
-        } finally {
+        }finally {
             session.close();
         }
-        return list;
+        return id;
     }
 
-    public List<BookEntity> ListBook(int categoryid) {
-        List<BookEntity> list = null;
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public List<OrderEntity> GetOdersByUid(int userid) {
         Session session = sessionFactory.openSession();
-
         Transaction transaction = null;
+        List<OrderEntity> list = null;
+
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM BookEntity WHERE categoryid = :categoryid");
-            query.setParameter("categoryid", categoryid);
+            Query query = session.createQuery("FROM OrderEntity WHERE userid = :userid");
+            query.setParameter("userid", userid);
             list = query.list();
             transaction.commit();
         } catch (HibernateException e) {
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -54,25 +52,28 @@ public class BookDao {
         return list;
     }
 
-    public BookEntity GetBookById(String id) {
-        BookEntity bookEntity = null;
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    public void UpdateOrderStatus(int id, boolean flag) {
         Session session = sessionFactory.openSession();
-
         Transaction transaction = null;
 
         try {
             transaction = session.beginTransaction();
-            bookEntity= (BookEntity) session.get(BookEntity.class, id);
+            Query query = session.createQuery("UPDATE OrderEntity SET status = :status WHERE id = :id");
+            if(flag == true) {
+                query.setParameter("status", "Success");
+            } else {
+                query.setParameter("status", "Failed");
+            }
+            query.setParameter("id", id);
+            int result = query.executeUpdate();
+            System.out.println("Rows affected: " + result);
             transaction.commit();
-
         } catch (HibernateException e) {
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
-        return  bookEntity;
     }
 
 }

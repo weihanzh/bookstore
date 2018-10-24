@@ -1,19 +1,24 @@
 package com.team404.bookstore.service;
 
-import com.team404.bookstore.dao.AddressDao;
-import com.team404.bookstore.dao.ShoppingCartDao;
-import com.team404.bookstore.dao.UserDao;
-import com.team404.bookstore.entity.AddressEntity;
-import com.team404.bookstore.entity.ShoppingCartEntity;
-import com.team404.bookstore.entity.UserEntity;
+import com.team404.bookstore.dao.*;
+import com.team404.bookstore.entity.*;
 import org.hibernate.internal.build.AllowSysOut;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.List;
 
 public class OrderProcessService {
     private UserDao userDao;
     private AddressDao addressDao;
     private ShoppingCartDao shoppingCartDao;
+    private BookDao bookDao;
+    private OrderDao orderDao;
+    private OrderBookDao orderBookDao;
+    private CountDao countDao;
+
     /*Submit Function*/
     public boolean CreateAccount(UserEntity userEntity, AddressEntity addressEntity) {
         boolean flag = true;
@@ -53,7 +58,6 @@ public class OrderProcessService {
         return flag;
     }
 
-    /*get userEntity info by passing username parameter*/
     public UserEntity GetUserByAccount(String username) {
         userDao = new UserDao();
 
@@ -79,6 +83,7 @@ public class OrderProcessService {
 
         return addressEntity;
     }
+
     /*Customer add item(s) to their own shopping cart*/
     public boolean AddItemtoCart(ShoppingCartEntity shoppingCartEntity) {
 
@@ -101,4 +106,102 @@ public class OrderProcessService {
         return shoppingCartDao.DeleteShoppingItemById(id);
     }
 
+    /*Calculate the amount of check-out items*/
+    public int CalculateAmount(List<ShoppingCartEntity> list) {
+        int amount = 0;
+        for (ShoppingCartEntity i : list) {
+            amount += i.getQuantity();
+        }
+        return amount;
+    }
+
+    /*Calculate a order's total cost(without tax)*/
+    public float CalculateTotalPrice(List<ShoppingCartEntity> list) {
+        bookDao = new BookDao();
+        float totalPrice = 0;
+
+        for(ShoppingCartEntity i : list) {
+            BookEntity bookEntity = bookDao.GetBookById(i.getBookid());
+            totalPrice += bookEntity.getPrice()*i.getQuantity();
+        }
+        return totalPrice;
+    }
+
+    /*createOrder function's Inner function:Generate the time when order is created*/
+    public String GetOrderGenerationTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return (String)df.format(new Date());
+    }
+
+    /*creates a purchase order including shipping, taxes, total amount due based on shopping cart info*/
+    public int createOrder(int userid) {
+
+        shoppingCartDao = new ShoppingCartDao();
+        addressDao = new AddressDao();
+        orderDao = new OrderDao();
+
+        OrderEntity orderEntity = new OrderEntity();
+        List<ShoppingCartEntity> list = shoppingCartDao.GetShoppingCartByUid(userid);
+
+        orderEntity.setUserid(userid);
+        orderEntity.setGenerationtime(Timestamp.valueOf(GetOrderGenerationTime()));
+        orderEntity.setTotalprice(CalculateTotalPrice(list));
+        orderEntity.setAddressid(addressDao.getAddressByUid(userid).getId());
+        orderEntity.setStatus("Processing");
+        if(addressDao.getAddressByUid(userid).getProvince().equals("ON")) {
+            orderEntity.setShipping(5);
+            orderEntity.setTax(orderEntity.getTotalprice()*0.13);
+            orderEntity.setAftertaxprice(orderEntity.getTotalprice()*1.13+orderEntity.getShipping());
+        }else {
+            orderEntity.setShipping(8);
+            orderEntity.setTax(orderEntity.getTotalprice()*0.08);
+            orderEntity.setAftertaxprice(orderEntity.getTotalprice()*1.08+orderEntity.getShipping());
+        }
+        orderEntity.setAmount(CalculateAmount(list));
+
+        int id = orderDao.AddOrder(orderEntity);
+
+        createOrderBook(list, id);
+
+        shoppingCartDao.DeleteShoppingItems(userid);
+
+        return id;
+    }
+
+    /*Create & Save OrderBook entities by using ShoppingCart entities*/
+    public void createOrderBook(List<ShoppingCartEntity> list, int id) {
+        orderBookDao = new OrderBookDao();
+        for(ShoppingCartEntity i : list) {
+            OrderBookEntity orderBookEntity = new OrderBookEntity();
+            orderBookEntity.setOrderid(id);
+            orderBookEntity.setBookid(i.getBookid());
+            orderBookEntity.setQuantity(i.getQuantity());
+            orderBookDao.AddOrderBook(orderBookEntity);
+        }
+    }
+
+    /*Confirm User's Order, Fail every 5th times among every orders*/
+    public boolean confirmOrder(int orderid) {
+        countDao = new CountDao();
+        orderDao = new OrderDao();
+        boolean flag = true;
+
+        if(countDao.getCount().getCounts() % 5 == 0 && countDao.getCount().getCounts() >= 5) {
+            countDao.CountUpdate();
+            flag = false;
+            orderDao.UpdateOrderStatus(orderid, flag);
+        }else {
+            countDao.CountUpdate();
+            flag = true;
+            orderDao.UpdateOrderStatus(orderid, flag);
+        }
+        return flag;
+    }
+
+    /*My Order Page-Display User's Order List(Should be used with some other functions to display the details)*/
+    public List<OrderEntity> DisplayMyOrder (int userid) {
+        orderDao = new OrderDao();
+
+        return orderDao.GetOdersByUid(userid);
+    }
 }
