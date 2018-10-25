@@ -22,7 +22,7 @@ public class GetByCategoryServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //get categoryid by getting cid parameter values on URL
+        //get categoryid by getting cid parameter values
         Integer categoryId = Integer.parseInt(request.getParameter("cid"));
         //call service method getProductList (categoryid): gets the list of products for a category,
         // or all products if no category is specified

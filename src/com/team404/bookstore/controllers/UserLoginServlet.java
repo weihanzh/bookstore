@@ -39,7 +39,7 @@ public class UserLoginServlet extends HttpServlet
             HttpSession hs = request.getSession();
             hs.setAttribute("user", ue);
             hs.setAttribute("address", address);
-            response.sendRedirect("/DisplayOrdersServlet");
+            response.sendRedirect("/pages/index.jsp");
         }
     }
 

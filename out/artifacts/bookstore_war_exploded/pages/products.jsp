@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<title>Products</title>
@@ -31,127 +32,31 @@
 		<div class="container">
 			<h2>Our Products</h2>			
 			<div class="col-md-9 product-model-sec">
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>						
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk1.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">							
-									<button>View</button>
-								</h4>
+				<c:forEach items="${categorybooks}" var="cbook">
+					<form method="post" action="/GetDetailServlet" name="detailForm" id="detailForm">
+						<div class="product-grid">
+							<a href="detail.jsp">
+								<div class="more-product"><span> </span></div>
+								<div class="product-img b-link-stripe b-animate-go  thickbox">
+									<input hidden="hidden" name="bid" value="${cbook.bookid}">
+									<img src="${cbook.imgUrl}" class="img-responsive" alt="">
+									<div class="b-wrapper">
+										<h4 class="b-animate b-from-left  b-delay03">
+											<button>View</button>
+										</h4>
+									</div>
+								</div>
+							</a>
+							<div class="product-info simpleCart_shelfItem">
+								<div class="product-info-cust prt_name">
+									<h4>${cbook.title}</h4>
+									<span class="item_price">$${cbook.price}</span>
+									<div class="clearfix"> </div>
+								</div>
 							</div>
 						</div>
-					</a>				
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>												
-					</div>
-				</div>
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk2.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">
-									<button>View</button>
-								</h4>
-							</div>
-						</div>
-					</a>
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk3.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">
-									<button>View</button>
-								</h4>
-							</div>
-						</div>
-					</a>
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk4.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">
-									<button>View</button>
-								</h4>
-							</div>
-						</div>
-					</a>
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk5.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">
-									<button>View</button>
-								</h4>
-							</div>
-						</div>
-					</a>
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-				<div class="product-grid">
-					<a href="detail.jsp">
-						<div class="more-product"><span> </span></div>
-						<div class="product-img b-link-stripe b-animate-go  thickbox">
-							<img src="../images/bk6.png" class="img-responsive" alt="">
-							<div class="b-wrapper">
-								<h4 class="b-animate b-from-left  b-delay03">
-									<button>View</button>
-								</h4>
-							</div>
-						</div>
-					</a>
-					<div class="product-info simpleCart_shelfItem">
-						<div class="product-info-cust prt_name">
-							<h4>CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</h4>
-							<span class="item_price">$2000.00</span>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-				</div>
-
+					</form>
+				</c:forEach>
 			</div>
 			<div class="clearfix"> </div>
 		</div>

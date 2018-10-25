@@ -62,10 +62,13 @@
 					<h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories</h4>
 					<c:forEach items="${categories}" var="category">
 						<div class="tab1">
-							<ul class="place">
-								<li class="sort">${category.category}</li>
-								<li class="by"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></li>
-							</ul>
+							<form action="/GetByCategoryServlet" method="post" name="categoryForm" id="categoryForm">
+								<input hidden="hidden" name="cid" value="${category.id}">
+								<ul class="place">
+									<li class="sort">${category.category}</li>
+									<li class="by"><button type="submit"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button></li>
+								</ul>
+							</form>
 							<div class="clearfix"> </div>
 						</div>
 					</c:forEach>
