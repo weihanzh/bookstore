@@ -16,7 +16,7 @@ $().ready(function() {
             },
             confirm_password: {
                 required: true,
-                minlength: 6,
+                minlength: 6
             },
             email: {
                 required: true,

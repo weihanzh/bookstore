@@ -1,6 +1,7 @@
 package com.team404.bookstore.controllers;
 
 import com.team404.bookstore.entity.BookEntity;
+import com.team404.bookstore.entity.CategoryEntity;
 import com.team404.bookstore.service.ProductCatalogService;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,10 @@ public class GetByCategoryServlet extends HttpServlet
 
         if (categoryId != null) {
             List<BookEntity> categoryBooks =  productCatalogService.getProductList(categoryId);
+            CategoryEntity categoryEntity = productCatalogService.getCategoryName(categoryId);
             HttpSession hs = request.getSession();
             hs.setAttribute("categorybooks", categoryBooks);
+            hs.setAttribute("categoryentity", categoryEntity);
             response.sendRedirect("/pages/products.jsp");
         } else {
             response.sendRedirect(request.getContextPath()+"/GetAllProductsServlet");

@@ -30,8 +30,8 @@
 	<!--products-->
 	<div class="products">	 
 		<div class="container">
-			<h2>Our Products</h2>			
-			<div class="col-md-9 product-model-sec">
+			<h2>${categoryentity.category}</h2>
+			<div class="col-md-12 product-model-sec">
 				<c:forEach items="${categorybooks}" var="cbook">
 					<form method="post" action="/GetDetailServlet" name="detailForm" id="detailForm">
 						<div class="product-grid">

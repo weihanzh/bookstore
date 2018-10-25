@@ -35,7 +35,7 @@
 			<c:forEach items="${allbooks}" var="book">
 				<form method="post" action="/GetDetailServlet" name="detailForm" id="detailForm">
 					<div class="product-grid">
-							<div class="more-product"><span> </span></div>
+							<div class="more-product"></div>
 							<div class="product-img b-link-stripe b-animate-go  thickbox">
 								<input hidden="hidden" name="bid" value="${book.bookid}">
 								<img src="${book.imgUrl}" class="img-responsive" alt="">
@@ -56,7 +56,7 @@
 				</form>
 			</c:forEach>
 		</div>
-		<div class="col-md-3 rsidebar span_1_of_left">
+		<div class="col-md-3 span_1_of_left">
 			<section  class="sky-form">
 				<div class="product_right">
 					<h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories</h4>

@@ -27,7 +27,7 @@
 	<div class="account">
 		<div class="container">
 			<div class="register">
-			   <form action="" method="post" id="creditForm" name="creditForm">
+			   <form action="/ConfirmOrderServlet" method="post" id="creditForm" name="creditForm">
 				   <div class="register-top-grid">
 					   <h3>Payment Information</h3>
 					   <div class="input col-lg-12">
