@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <title>My Orders</title>
@@ -22,76 +23,120 @@
 		<div class="order">
 			<div class="col-lg-12 single-grid1">
 				<h2>My Order</h2>
-				<div class="col-lg-12 order-list">
-					<div class="col-lg-2">
-						<h4>Order ID : </h4>
-						<p>123456</p>
+				<c:forEach items = "${orderEntityList}" var = "i">
+					<div class="col-lg-12 order-list">
+						<div class="col-lg-2">
+							<h4>Order ID : </h4>
+							<p>${i.orderEntity.id}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Order Placed : </h4>
+							<p>${i.orderEntity.generationtime}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Quantity:</h4>
+							<p>${i.orderEntity.amount}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Shipping:</h4>
+							<p>${i.orderEntity.shipping}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Tax:</h4>
+							<p>${i.orderEntity.tax}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Total Price (Before Tax): </h4>
+							<p>${i.orderEntity.totalprice}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Total Price (After Tax):</h4>
+							<p>${i.orderEntity.aftertaxprice}</p>
+						</div>
+						<div class="col-lg-2">
+							<h4>Products Name : </h4>
+							<c:forEach items="${i.bookEntityList}" var="j">
+								<p>
+									${j.title}
+								</p>
+							</c:forEach>
+						</div>
+						<div class="col-lg-2">
+							<h4>Status : </h4>
+							<p>${i.orderEntity.status}</p>
+						</div>
 					</div>
-					<div class="col-lg-2">
-						<h4>Order Placed : </h4>
-						<p>January 28, 2018</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Quantity:</h4>
-						<p>100</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Shipping:</h4>
-						<p>$5</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Tax:</h4>
-						<p>$13</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Total Price : </h4>
-						<p>$113</p>
-					</div>
-					<div class="col-lg-10">
-						<h4>Products Name : </h4>
-						<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>
-						<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Status : </h4>
-						<p>Success</p>
-					</div>
-				</div>
-				<div class="col-lg-12 order-list">
-					<div class="col-lg-2">
-						<h4>Order ID : </h4>
-						<p>123456</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Order Placed : </h4>
-						<p>January 28, 2018</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Quantity:</h4>
-						<p>100</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Shipping:</h4>
-						<p>$5</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Tax:</h4>
-						<p>$13</p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Total Price : </h4>
-						<p>$113</p>
-					</div>
-					<div class="col-lg-10">
-						<h4>Products Name : </h4>
-						<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>
-						<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>
-					</div>
-					<div class="col-lg-2">
-						<h4>Status : </h4>
-						<p>Success</p>
-					</div>
-				</div>
+				</c:forEach>
+				<%--<div class="col-lg-12 order-list">--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Order ID : </h4>--%>
+						<%--<p>123456</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Order Placed : </h4>--%>
+						<%--<p>January 28, 2018</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Quantity:</h4>--%>
+						<%--<p>100</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Shipping:</h4>--%>
+						<%--<p>$5</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Tax:</h4>--%>
+						<%--<p>$13</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Total Price : </h4>--%>
+						<%--<p>$113</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-10">--%>
+						<%--<h4>Products Name : </h4>--%>
+						<%--<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>--%>
+						<%--<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Status : </h4>--%>
+						<%--<p>Success</p>--%>
+					<%--</div>--%>
+				<%--</div>--%>
+				<%--<div class="col-lg-12 order-list">--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Order ID : </h4>--%>
+						<%--<p>123456</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Order Placed : </h4>--%>
+						<%--<p>January 28, 2018</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Quantity:</h4>--%>
+						<%--<p>100</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Shipping:</h4>--%>
+						<%--<p>$5</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Tax:</h4>--%>
+						<%--<p>$13</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Total Price : </h4>--%>
+						<%--<p>$113</p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-10">--%>
+						<%--<h4>Products Name : </h4>--%>
+						<%--<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>--%>
+						<%--<p><a href="detail.jsp">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE</a></p>--%>
+					<%--</div>--%>
+					<%--<div class="col-lg-2">--%>
+						<%--<h4>Status : </h4>--%>
+						<%--<p>Success</p>--%>
+					<%--</div>--%>
+				<%--</div>--%>
 			</div>
 			<div class="clearfix"> </div>
 		</div>

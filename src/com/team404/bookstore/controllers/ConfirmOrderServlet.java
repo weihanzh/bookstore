@@ -17,9 +17,10 @@ public class ConfirmOrderServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         // every 5th request is refused on the website
-        int oid = Integer.parseInt(request.getParameter("oid"));
+        HttpSession hs = request.getSession();
+        int orderid = (int) hs.getAttribute("orderid");
         OrderProcessService orderProcessService = new OrderProcessService();
-        boolean flag = orderProcessService.confirmOrder(oid);
+        boolean flag = orderProcessService.confirmOrder(orderid);
         if (flag) {
             response.sendRedirect("/pages/success.jsp");
         } else {

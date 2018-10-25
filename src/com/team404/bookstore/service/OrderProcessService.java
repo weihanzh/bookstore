@@ -204,4 +204,10 @@ public class OrderProcessService {
 
         return orderDao.GetOdersByUid(userid);
     }
+
+    public List<OrderBookEntity> GetOrderBooks (int orderid) {
+        orderBookDao = new OrderBookDao();
+
+        return  orderBookDao.GetOrderBookByOid(orderid);
+    }
 }

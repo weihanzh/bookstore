@@ -23,7 +23,7 @@ public class GetDetailServlet extends HttpServlet
         ProductCatalogService productCatalogService = new ProductCatalogService();
         //getProductInfo(productid): gets the detailed product information for a product.
         BookEntity book = productCatalogService.getProductInfo(bookId);
-        CategoryEntity categoryEntity = productCatalogService.getCategory(book.getCategory());
+        CategoryEntity categoryEntity = productCatalogService.getCategory(book.getCategoryid());
         HttpSession hs = request.getSession();
         hs.setAttribute("detailinfo", book);
         hs.setAttribute("detailCategory", categoryEntity);

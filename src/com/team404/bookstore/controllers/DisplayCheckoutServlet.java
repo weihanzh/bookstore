@@ -25,9 +25,10 @@ public class DisplayCheckoutServlet extends HttpServlet
         UserEntity user = (UserEntity) hs.getAttribute("user");
         int userId = user.getId();
         OrderProcessService orderProcessService = new OrderProcessService();
-        orderProcessService.createOrder(userId);
-        List<OrderEntity> orderEntityList = orderProcessService.DisplayMyOrder(userId);
-        hs.setAttribute("orderlist", orderEntityList);
+        int orderid = orderProcessService.createOrder(userId);
+//        List<OrderEntity> orderEntityList = orderProcessService.DisplayMyOrder(userId);
+//        hs.setAttribute("orderlist", orderEntityList);
+        hs.setAttribute("orderid", orderid);
         response.sendRedirect("/pages/checkout.jsp");
     }
 

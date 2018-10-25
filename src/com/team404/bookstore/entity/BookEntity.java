@@ -8,7 +8,7 @@ public class BookEntity
     private String title;
     private int price;
     private String author;
-    private int category;
+    private int categoryid;
     private String imgUrl;
     private String description;
     private Integer publisherYear;
@@ -53,14 +53,14 @@ public class BookEntity
         this.author = author;
     }
 
-    public int getCategory()
+    public int getCategoryid()
     {
-        return category;
+        return categoryid;
     }
 
-    public void setCategory(int category)
+    public void setCategoryid(int categoryid)
     {
-        this.category = category;
+        this.categoryid = categoryid;
     }
 
     public String getImgUrl()
@@ -103,7 +103,7 @@ public class BookEntity
                 Objects.equals(bookid, that.bookid) &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(author, that.author) &&
-                Objects.equals(category, that.category) &&
+                Objects.equals(categoryid, that.categoryid) &&
                 Objects.equals(imgUrl, that.imgUrl) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(publisherYear, that.publisherYear);
@@ -112,6 +112,6 @@ public class BookEntity
     @Override
     public int hashCode()
     {
-        return Objects.hash(bookid, title, price, author, category, imgUrl, description, publisherYear);
+        return Objects.hash(bookid, title, price, author, categoryid, imgUrl, description, publisherYear);
     }
 }

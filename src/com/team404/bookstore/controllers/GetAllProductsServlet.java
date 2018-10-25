@@ -28,7 +28,7 @@ public class GetAllProductsServlet extends HttpServlet
         HttpSession hs = request.getSession();
         hs.setAttribute("allbooks", bookList);
         hs.setAttribute("categories", categories);
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/pages/index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
