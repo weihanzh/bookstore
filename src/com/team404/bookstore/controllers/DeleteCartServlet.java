@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,8 +20,14 @@ public class DeleteCartServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        doGet(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         //get shoopingcart id from client
         int shoppingCartId = Integer.parseInt(request.getParameter("sid"));
+        System.out.println(shoppingCartId);
         OrderProcessService orderProcessService = new OrderProcessService();
         //call delete service method to delete the item
         orderProcessService.DeleteSingleItem(shoppingCartId);
@@ -49,10 +56,5 @@ public class DeleteCartServlet extends HttpServlet
         }
         hs.setAttribute("bookcartcomblist", bookCartCombineList);
         response.sendRedirect("/pages/mycart.jsp");
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        doPost(request, response);
     }
 }

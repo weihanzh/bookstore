@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/pages/mycart.jsp","/pages/checkout.jsp", "/pages/account.jsp", "/pages/orders.jsp"})
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/pages/mycart.jsp","/pages/checkout.jsp", "/pages/account.jsp", "/pages/orders.jsp", "/MyCartServlet", "/DisplayShoppingCartServlet"})
 public class LoginFilter implements Filter
 {
     public void destroy()

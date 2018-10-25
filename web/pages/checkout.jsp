@@ -36,12 +36,13 @@
 					   </div>
 					   <div class="input col-lg-12">
 						   <span>Credit Card Name</span>
-						   <input type="text" name="credit_name" required">
+						   <input type="text" name="credit_name" required>
 					   </div>
 					   <h3>Shipping information</h3>
 					   <div class="input col-lg-12">
-						   <p>Name: <span>Zhang San</span></p>
-						   <p>Address: <span>Street, ON, Canada</span></p>
+						   <p>Name: <span>${user.firstname} ${user.lastname}</span></p>
+						   <p>Tel: <span>${address.phone}</span></p>
+						   <p>Address: <span>${address.street}, ${address.province}, ${address.zip}, ${address.country}</span></p>
 					   </div>
 					   <div class="clearfix"> </div>
 				   </div>

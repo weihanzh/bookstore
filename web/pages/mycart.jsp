@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<title>My Cart</title>
@@ -21,6 +22,7 @@
 	<script src="../js/simpleCart.min.js"> </script>
 	<!-- cart -->
 </head>
+
 <body>
 	<!--header-->
 	<%@ include file="header.jsp" %>
@@ -28,42 +30,47 @@
 	<!--cart-items-->
 	<div class="cart-items">
 		<div class="container">
-			<h2>My Shopping Cart: <span> 2 </span> books</h2>
-			<div class="cart-header">
-				<div class="close1"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-					<div class="cart-item cyc">
-						<img src="../images/bk1.png" class="img-responsive" alt="">
+			<form action="/DisplayCheckoutServlet" method="post" name="displayForm" id="displayForm">
+				<h2>My Shopping Cart: </h2>
+				<c:forEach items="${bookcartcomblist}" var="bookcart">
+					<div class="cart-header">
+						<%--<a href="/DeleteCartServlet" class="close1"> </a>--%>
+						<input class="close1" type="button" onclick="javascript:location.href='/DeleteCartServlet?sid=${bookcart.shoppingCartEntity.id}'" >
+						<div class="cart-sec simpleCart_shelfItem">
+							<div class="cart-item cyc">
+								<img src="${bookcart.bookEntity.imgUrl}" class="img-responsive" alt="">
+							</div>
+							<div class="cart-item-info">
+								<h3><a href="#"> ${bookcart.bookEntity.title} </a></h3>
+								<h3><span>Price:</span></h3>
+								<p class="qty"> $${bookcart.bookEntity.price} </p>
+								<h3><span>Quantity:</span></h3>
+								<p class="qty"> ${bookcart.shoppingCartEntity.quantity} </p>
+							</div>
+							<div class="clearfix"></div>
+						</div>
 					</div>
-					<div class="cart-item-info">
-						<h3><a href="#"> CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE </a></h3>
-						<h3><span>Price:</span></h3>
-						<p class="qty"> 59.99 </p>
-						<h3><span>Quantity:</span></h3>
-						<p class="qty"> 1 </p>
-					</div>
-					<div class="clearfix"></div>
+				</c:forEach>
+				<%--<div class="cart-header2">--%>
+					<%--<div class="close2"> </div>--%>
+					<%--<div class="cart-sec simpleCart_shelfItem">--%>
+						<%--<div class="cart-item cyc">--%>
+							<%--<img src="../images/bk2.png" class="img-responsive" alt="">--%>
+						<%--</div>--%>
+						<%--<div class="cart-item-info">--%>
+							<%--<h3><a href="#"> CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE </a></h3>--%>
+							<%--<h3><span>Price:</span></h3>--%>
+							<%--<p class="qty"> 59.99 </p>--%>
+							<%--<h3><span>Quantity:</span></h3>--%>
+							<%--<p class="qty"> 1 </p>--%>
+						<%--</div>--%>
+						<%--<div class="clearfix"></div>--%>
+					<%--</div>--%>
+				<%--</div>--%>
+				<div class="register-but">
+					<input type="submit" value="Proceed to checkout" onclick="location.href='checkout.jsp'">
 				</div>
-			</div>
-			<div class="cart-header2">
-				<div class="close2"> </div>
-				<div class="cart-sec simpleCart_shelfItem">
-					<div class="cart-item cyc">
-						<img src="../images/bk2.png" class="img-responsive" alt="">
-					</div>
-					<div class="cart-item-info">
-						<h3><a href="#"> CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE </a></h3>
-						<h3><span>Price:</span></h3>
-						<p class="qty"> 59.99 </p>
-						<h3><span>Quantity:</span></h3>
-						<p class="qty"> 1 </p>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			<div class="register-but">
-				<input type="submit" value="Proceed to checkout" onclick="location.href='checkout.jsp'">
-			</div>
+			</form>
 		</div>
 	</div>
 	<!--//checkout-->	

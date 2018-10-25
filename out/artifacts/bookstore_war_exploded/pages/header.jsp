@@ -44,13 +44,13 @@
                         <div id="loginBox">
                             <div id="loginForm">
                                 <p><a class="sign" href="/pages/account.jsp">My Account</a> </p>
-                                <p><a class="sign" href="/pages/orders.jsp">My Orders</a> </p>
+                                <p><a class="sign" href="/DisplayOrdersServlet">My Orders</a> </p>
                                 <p><a class="sign" href="/UserLogoutServlet">Sign Out</a></p>
                             </div>
                         </div>
                     </div>
                     <div class="header-right cart">
-                        <a href="/pages/mycart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                        <a href="/DisplayShoppingCartServlet"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>

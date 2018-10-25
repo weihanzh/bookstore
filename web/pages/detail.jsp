@@ -72,11 +72,10 @@
 						<div class="clearfix"></div>
 					</div>
 					<form action="/MyCartServlet" name="myCartForm" method="post" id="myCartForm">
-						<p class="qty"> Qty :  </p><input min="1" type="number" id="quantity" name="quantity" value="1" class="form-control input-small">
-						<input hidden="hidden" name="bookid" value="0132350882">
+						<p class="qty"> Qty :  </p><input min="1" type="number" id="quantity" name="quantity" class="form-control input-small">
 						<div class="clearfix"> </div>
 						<div class="btn_form">
-							<a href="/pages/mycart.jsp" class="add-cart item_add" name="add_to_cart">ADD TO CART</a>
+							<button type="submit" class="add-cart item_add" name="add_to_cart">ADD TO CART</button>
 						</div>
 					</form>
 					<div class="tag">

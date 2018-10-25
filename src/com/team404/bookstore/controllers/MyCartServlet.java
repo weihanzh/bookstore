@@ -23,7 +23,7 @@ public class MyCartServlet extends HttpServlet
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         HttpSession hs = request.getSession();
-        BookEntity book = (BookEntity) hs.getAttribute("detail");
+        BookEntity book = (BookEntity) hs.getAttribute("detailinfo");
         String bookId = book.getBookid();
         UserEntity userEntity = (UserEntity) hs.getAttribute("user");
         int userId = userEntity.getId();
@@ -41,7 +41,7 @@ public class MyCartServlet extends HttpServlet
         if (flag) {
             List<ShoppingCartEntity> shoppingCartEntityList = orderProcessService.DisplayShoppingCart(userId);
             hs.setAttribute("shoppingcartlist", shoppingCartEntityList);
-            response.sendRedirect("/pages/mycart.jsp");
+            response.sendRedirect("/DisplayShoppingCartServlet");
         } else {
             response.sendRedirect("/pages/detail.jsp");
         }
