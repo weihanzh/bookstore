@@ -71,11 +71,11 @@
                     <h3>Login information</h3>
                     <div class="input col-lg-12">
                         <span>Password<label>*</label></span>
-                        <input type="password" name="password" id="password" required>
+                        <input type="password" name="password" id="password">
                     </div>
                     <div class="input col-lg-12">
                         <span>Confirm Password<label>*</label></span>
-                        <input type="password" name="confirm_password" id="confirm_password" required>
+                        <input type="password" name="confirm_password" id="confirm_password">
                     </div>
                 </div>
                 <div class="register-but col-lg-12">

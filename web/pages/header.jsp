@@ -23,6 +23,7 @@
                     <div class=" navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="/pages/index.jsp">Home</a></li>
+                            <li><a href="/pages/about.jsp">About Us</a></li>
                             <%
                                 if (userEntity == null) {
                             %>

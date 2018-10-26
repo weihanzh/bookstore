@@ -51,22 +51,6 @@
 						</div>
 					</div>
 				</c:forEach>
-				<%--<div class="cart-header2">--%>
-					<%--<div class="close2"> </div>--%>
-					<%--<div class="cart-sec simpleCart_shelfItem">--%>
-						<%--<div class="cart-item cyc">--%>
-							<%--<img src="../images/bk2.png" class="img-responsive" alt="">--%>
-						<%--</div>--%>
-						<%--<div class="cart-item-info">--%>
-							<%--<h3><a href="#"> CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE </a></h3>--%>
-							<%--<h3><span>Price:</span></h3>--%>
-							<%--<p class="qty"> 59.99 </p>--%>
-							<%--<h3><span>Quantity:</span></h3>--%>
-							<%--<p class="qty"> 1 </p>--%>
-						<%--</div>--%>
-						<%--<div class="clearfix"></div>--%>
-					<%--</div>--%>
-				<%--</div>--%>
 				<div class="register-but">
 					<input type="submit" value="Proceed to checkout" onclick="location.href='checkout.jsp'">
 				</div>

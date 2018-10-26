@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.validate.js"></script>
 	<script type="text/javascript" src="../js/form-validation.js"></script>
+	<script type="text/javascript" src="../js/additional-methods.min.js"></script>
 	<!-- //js -->
 	<!-- cart -->
 	<script src="../js/simpleCart.min.js"> </script>

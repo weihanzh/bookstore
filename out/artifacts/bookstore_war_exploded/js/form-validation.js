@@ -1,11 +1,4 @@
-// $.validator.setDefaults({
-//     submitHandler: function() {
-//         alert("Success!");
-//     }
-// });
-
 $().ready(function() {
-
     $("#registerForm").validate({
         rules: {
             first_name: "required",
@@ -16,7 +9,8 @@ $().ready(function() {
             },
             confirm_password: {
                 required: true,
-                minlength: 6
+                minlength: 6,
+                equalTo: "#password"
             },
             email: {
                 required: true,
@@ -41,6 +35,7 @@ $().ready(function() {
             confirm_password: {
                 required: "Please provide a password",
                 minlength: "Your password must be at least 6 characters long",
+                equalTo: "Please enter the same password as above"
             },
             email: "Please enter a valid email address",
             country: "Please enter a country",
@@ -74,7 +69,7 @@ $().ready(function() {
         rules: {
             credit_account: {
                 required: true,
-                minlength: 16
+                creditcard: true
             },
             credit_name: "required"
         },

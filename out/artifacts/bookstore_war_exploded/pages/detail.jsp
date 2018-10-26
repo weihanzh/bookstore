@@ -48,12 +48,6 @@
 							<li data-thumb="../images/bk1.png">
 								<div class="thumb-image"> <img src="${detailinfo.imgUrl}" data-imagezoom="true" class="img-responsive"> </div>
 							</li>
-							<%--<li data-thumb="../images/bk1.png">--%>
-								 <%--<div class="thumb-image"> <img src="../images/bk1.png" data-imagezoom="true" class="img-responsive"> </div>--%>
-							<%--</li>--%>
-							<%--<li data-thumb="../images/bk1.png">--%>
-							   <%--<div class="thumb-image"> <img src="../images/bk1.png" data-imagezoom="true" class="img-responsive"> </div>--%>
-							<%--</li>--%>
 						</ul>
 					</div>
 				</div>

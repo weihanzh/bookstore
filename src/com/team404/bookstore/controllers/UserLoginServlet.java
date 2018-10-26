@@ -29,6 +29,7 @@ public class UserLoginServlet extends HttpServlet
         OrderProcessService orderProcessService = new OrderProcessService();
 
         boolean flag = orderProcessService.getAccount(u);
+        HttpSession hs = request.getSession();
         if (!flag) {
             //login fail
             response.sendRedirect("/pages/signin.jsp");
@@ -36,7 +37,6 @@ public class UserLoginServlet extends HttpServlet
             UserEntity ue = orderProcessService.GetUserByAccount(emailUserName);
             AddressEntity address = orderProcessService.getAddressinfo(ue.getId());
             //login success, put user information and address into the session
-            HttpSession hs = request.getSession();
             hs.setAttribute("user", ue);
             hs.setAttribute("address", address);
             response.sendRedirect("/pages/index.jsp");
