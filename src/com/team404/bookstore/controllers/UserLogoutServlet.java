@@ -9,12 +9,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/UserLogoutServlet")
+/*
+    User calls this servlet to logout
+ */
 public class UserLogoutServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession(false);
-        if(session != null){
+        if(session != null){ //invalid all sessions
             session.invalidate();
         }
         response.sendRedirect("/GetAllProductsServlet");

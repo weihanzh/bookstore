@@ -67,7 +67,7 @@
                     </div>
                     <div class="clearfix"> </div>
                 </div>
-                <div class="register-bottom-grid">
+                <div class="register-top-grid">
                     <h3>Login information</h3>
                     <div class="input col-lg-12">
                         <span>Password<label>*</label></span>

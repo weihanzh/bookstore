@@ -13,11 +13,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/GetDetailServlet")
+/*
+    Call this servlet to get detail information about books
+ */
 public class GetDetailServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //get bookid by getting bid parameter values on URL
+        //get bookid by getting bid parameter values based on the bookId values hidden in the form
         String bookId = request.getParameter("bid");
         //call service method
         ProductCatalogService productCatalogService = new ProductCatalogService();
@@ -25,6 +28,7 @@ public class GetDetailServlet extends HttpServlet
         BookEntity book = productCatalogService.getProductInfo(bookId);
         CategoryEntity categoryEntity = productCatalogService.getCategory(book.getCategoryid());
         HttpSession hs = request.getSession();
+        //put detail book information and category in the session
         hs.setAttribute("detailinfo", book);
         hs.setAttribute("detailCategory", categoryEntity);
         response.sendRedirect("/pages/detail.jsp");

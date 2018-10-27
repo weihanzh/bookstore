@@ -57,8 +57,6 @@
 						<p>Author : ${detailinfo.author}</p>
 						<p>Publish Year : ${detailinfo.publisherYear} </p>
 					</div>
-					<h4><strong>Introduction:</strong></h4>
-					<p> ${detailinfo.description} </p>
 					<div class="galry">
 						<div class="prices-left">
 							<h5 class="item_price">$${detailinfo.price}</h5>
@@ -73,7 +71,7 @@
 						</div>
 					</form>
 					<div class="tag">
-						<p>Category : <a href="#"> ${detailCategory.category} </a></p>
+						<p>Category : ${detailCategory.category} </p>
 					</div>
 				</div>
 

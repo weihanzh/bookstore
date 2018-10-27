@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/GetAllProductsServlet")
+/*
+    Calls this servlet to get all products and categories list
+ */
 public class GetAllProductsServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

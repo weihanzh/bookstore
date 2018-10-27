@@ -59,10 +59,5 @@ public class ProductCatalogService {
 
         return categoryEntity;
     }
-    public  CategoryEntity getCategoryName(int categoryId) {
-        categoryDao = new CategoryDao();
-        CategoryEntity categoryEntity = categoryDao.getCategoryById(categoryId);
-        return categoryEntity;
-    }
 
 }

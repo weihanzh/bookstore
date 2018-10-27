@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/UserLoginServlet")
+/*
+    User calls this servlet to login his account
+ */
 public class UserLoginServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -23,23 +26,38 @@ public class UserLoginServlet extends HttpServlet
          * service method returns accountInfo if accountName exists
          * and accountPassword is correct, otherwise returns null
          */
-        UserEntity u = new UserEntity();
-        u.setUsername(emailUserName);
-        u.setPassword(password);
-        OrderProcessService orderProcessService = new OrderProcessService();
+        /*
+            we should validate email and password in advance
+         */
+        if (emailUserName != null && emailUserName.length() > 0
+                && emailUserName.indexOf("@") > 0
+                && emailUserName.indexOf("@") < emailUserName.length() - 1
+                && password != null && password.length() >= 6)
+        {
+            UserEntity u = new UserEntity();
+            u.setUsername(emailUserName);
+            u.setPassword(password);
+            OrderProcessService orderProcessService = new OrderProcessService();
 
-        boolean flag = orderProcessService.getAccount(u);
-        HttpSession hs = request.getSession();
-        if (!flag) {
-            //login fail
+            boolean flag = orderProcessService.getAccount(u);
+            HttpSession hs = request.getSession();
+            if (!flag)
+            {
+                //login fail
+                response.sendRedirect("/pages/signin.jsp");
+            } else
+            {
+                UserEntity ue = orderProcessService.GetUserByAccount(emailUserName);
+                AddressEntity address = orderProcessService.getAddressinfo(ue.getId());
+                //login success, put user information and address into the session
+                hs.setAttribute("user", ue);
+                hs.setAttribute("address", address);
+                response.sendRedirect("/pages/index.jsp");
+            }
+            System.out.println("The login userName and password are valid");
+        } else { //invalid email or password
+            System.out.println("The login information is invalid");
             response.sendRedirect("/pages/signin.jsp");
-        } else {
-            UserEntity ue = orderProcessService.GetUserByAccount(emailUserName);
-            AddressEntity address = orderProcessService.getAddressinfo(ue.getId());
-            //login success, put user information and address into the session
-            hs.setAttribute("user", ue);
-            hs.setAttribute("address", address);
-            response.sendRedirect("/pages/index.jsp");
         }
     }
 

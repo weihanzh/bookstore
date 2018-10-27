@@ -1,7 +1,5 @@
 package com.team404.bookstore.controllers;
-
-import com.team404.bookstore.entity.AddressEntity;
-import com.team404.bookstore.entity.OrderEntity;
+import com.team404.bookstore.entity.ShoppingCartEntity;
 import com.team404.bookstore.entity.UserEntity;
 import com.team404.bookstore.service.OrderProcessService;
 
@@ -15,6 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/DisplayCheckoutServlet")
+/*
+    Call this servlet to display the checkout page and create an order
+ */
 public class DisplayCheckoutServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -25,11 +26,17 @@ public class DisplayCheckoutServlet extends HttpServlet
         UserEntity user = (UserEntity) hs.getAttribute("user");
         int userId = user.getId();
         OrderProcessService orderProcessService = new OrderProcessService();
-        int orderid = orderProcessService.createOrder(userId);
-//        List<OrderEntity> orderEntityList = orderProcessService.DisplayMyOrder(userId);
-//        hs.setAttribute("orderlist", orderEntityList);
-        hs.setAttribute("orderid", orderid);
-        response.sendRedirect("/pages/checkout.jsp");
+        List<ShoppingCartEntity> shoppingCartEntityList = orderProcessService.DisplayShoppingCart(userId);
+        if (!shoppingCartEntityList.isEmpty()) //if the shopping cart is not empty
+        {
+            System.out.println("shopping cart not empty");
+            int orderid = orderProcessService.createOrder(userId);//create an order
+            hs.setAttribute("orderid", orderid);
+            response.sendRedirect("/pages/checkout.jsp");
+        } else {
+            System.out.println("Your shopping cart is empty!");
+            response.sendRedirect("/GetAllProductsServlet");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

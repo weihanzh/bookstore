@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/GetByCategoryServlet")
+/*
+    Call this servlet to get all books based on a specified category
+ */
 public class GetByCategoryServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -23,7 +26,7 @@ public class GetByCategoryServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //get categoryid by getting cid parameter values
+        //get categoryid by getting cid parameter values based on hidden categoryId
         Integer categoryId = Integer.parseInt(request.getParameter("cid"));
         //call service method getProductList (categoryid): gets the list of products for a category,
         // or all products if no category is specified
@@ -31,7 +34,7 @@ public class GetByCategoryServlet extends HttpServlet
 
         if (categoryId != null) {
             List<BookEntity> categoryBooks =  productCatalogService.getProductList(categoryId);
-            CategoryEntity categoryEntity = productCatalogService.getCategoryName(categoryId);
+            CategoryEntity categoryEntity = productCatalogService.getCategory(categoryId);
             HttpSession hs = request.getSession();
             hs.setAttribute("categorybooks", categoryBooks);
             hs.setAttribute("categoryentity", categoryEntity);

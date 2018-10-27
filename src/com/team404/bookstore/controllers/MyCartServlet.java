@@ -16,12 +16,21 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/MyCartServlet")
+/*
+    Call this servlet to add items into the shopping cart
+ */
 public class MyCartServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
+        //Check the quantity, it should not be any invalid values
+        String str = request.getParameter("quantity");
+        if (str == null || str.equals("") || Integer.parseInt(str) <= 0) {
+            System.out.println("Invalid input quantity!");
+            response.sendRedirect("/pages/detail.jsp");
+            return;
+        }
+        Integer quantity = Integer.parseInt(str);
         HttpSession hs = request.getSession();
         BookEntity book = (BookEntity) hs.getAttribute("detailinfo");
         String bookId = book.getBookid();
@@ -38,7 +47,7 @@ public class MyCartServlet extends HttpServlet
         // and the shoppingcartlist httpsession
         OrderProcessService orderProcessService = new OrderProcessService();
         boolean flag = orderProcessService.AddItemtoCart(shoppingCartEntity);
-        if (flag) {
+        if (flag) { // Add to cart is successful
             List<ShoppingCartEntity> shoppingCartEntityList = orderProcessService.DisplayShoppingCart(userId);
             hs.setAttribute("shoppingcartlist", shoppingCartEntityList);
             response.sendRedirect("/DisplayShoppingCartServlet");

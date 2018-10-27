@@ -66,6 +66,7 @@ public class ShoppingCartDao {
                 Query query = session.createQuery("DELETE FROM ShoppingCartEntity WHERE id = :val");
                 query.setParameter("val", val);
                 query.executeUpdate();
+                transaction.commit();
             }
             transaction.commit();
         }catch (HibernateException e) {
@@ -118,5 +119,57 @@ public class ShoppingCartDao {
             session.close();
         }
         return flag;
+    }
+
+    public ShoppingCartEntity GetCartItem(int userid, String bookid) {
+        Session session = sessionFactory.openSession();
+        ShoppingCartEntity shoppingCartEntity1 = null;
+
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("FROM ShoppingCartEntity WHERE userid = :userid AND bookid = :bookid");
+            query.setParameter("userid", userid);
+            query.setParameter("bookid", bookid);
+            List<ShoppingCartEntity> list = query.list();
+            transaction.commit();
+            if(list.size() != 0) {
+                shoppingCartEntity1 = list.get(0);
+            }
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return  shoppingCartEntity1;
+    }
+
+    public boolean UpdateItemQuantity(ShoppingCartEntity shoppingCartEntity) {
+        Session session = sessionFactory.openSession();
+        boolean flag = true;
+        Transaction transaction = null;
+
+        ShoppingCartEntity shoppingCartEntity1 = GetCartItem(shoppingCartEntity.getUserid(), shoppingCartEntity.getBookid());
+        int previouQuantity = shoppingCartEntity1.getQuantity();
+
+        try {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("UPDATE ShoppingCartEntity SET quantity = :quantity WHERE id = :id");
+            query.setParameter("quantity", shoppingCartEntity.getQuantity()+previouQuantity);
+            query.setParameter("id", shoppingCartEntity1.getId());
+            int result = query.executeUpdate();
+            System.out.println("Rows affected: " + result);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+            flag = false;
+        }finally {
+            session.close();
+        }
+
+        return  flag;
     }
 }

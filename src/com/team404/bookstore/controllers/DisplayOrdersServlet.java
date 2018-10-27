@@ -16,6 +16,9 @@ import java.util.List;
 
 
 @WebServlet("/DisplayOrdersServlet")
+/*
+    Call this servlet to display all order information on orders page
+ */
 public class DisplayOrdersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -24,6 +27,7 @@ public class DisplayOrdersServlet extends HttpServlet {
         int userId = user.getId();
 
         OrderProcessService orderProcessService = new OrderProcessService();
+        //get orderEntity list based on userid
         List<OrderEntity> orderEntityList = orderProcessService.DisplayMyOrder(userId);
 
         ProductCatalogService productCatalogService = new ProductCatalogService();
@@ -47,7 +51,7 @@ public class DisplayOrdersServlet extends HttpServlet {
             orderBookCombineList.add(orderBookCombine);
 
         }
-
+        //put this list in the session
         hs.setAttribute("orderEntityList", orderBookCombineList);
         response.sendRedirect("/pages/orders.jsp");
     }

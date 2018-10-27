@@ -38,7 +38,7 @@
                         </div>
                         <div class="input col-lg-12">
                             <span>Password</span>
-                            <input type="text" name="password" required>
+                            <input type="password" name="password" required>
                         </div>
                         <div class="clearfix"> </div>
                     </div>

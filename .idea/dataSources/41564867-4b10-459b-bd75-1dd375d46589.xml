@@ -1225,7 +1225,7 @@
     </column>
     <column id="303" parent="279" name="description">
       <Position>7</Position>
-      <DataType>varchar(200)|0s</DataType>
+      <DataType>varchar(2000)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="304" parent="279" name="publisher_year">

@@ -16,6 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 
 @WebServlet("/DeleteCartServlet")
+/*
+    Call this servlet to delete items in the shopping cart
+ */
 public class DeleteCartServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -25,9 +28,8 @@ public class DeleteCartServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //get shoopingcart id from client
+        //get shopping cart id from client URL parameter
         int shoppingCartId = Integer.parseInt(request.getParameter("sid"));
-        System.out.println(shoppingCartId);
         OrderProcessService orderProcessService = new OrderProcessService();
         //call delete service method to delete the item
         orderProcessService.DeleteSingleItem(shoppingCartId);

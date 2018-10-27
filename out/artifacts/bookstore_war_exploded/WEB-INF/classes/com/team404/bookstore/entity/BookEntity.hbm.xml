@@ -24,7 +24,7 @@
             <column name="imgURL" sql-type="varchar(200)" length="200" not-null="true"/>
         </property>
         <property name="description">
-            <column name="description" sql-type="varchar(200)" length="200" not-null="true"/>
+            <column name="description" sql-type="varchar(2000)" length="2000" not-null="true"/>
         </property>
         <property name="publisherYear">
             <column name="publisher_year" sql-type="int(11)" not-null="true"/>

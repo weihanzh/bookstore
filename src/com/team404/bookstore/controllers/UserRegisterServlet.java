@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/UserRegisterServlet")
+/*
+    User calls this servlet to register a new account
+ */
 public class UserRegisterServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -27,36 +30,75 @@ public class UserRegisterServlet extends HttpServlet
         String zipcode = request.getParameter("zip");
         String phone = request.getParameter("tel");
         String password = request.getParameter("password");
-
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(emailUserName);
-        userEntity.setFirstname(firstName);
-        userEntity.setLastname(lastName);
-        userEntity.setPassword(password);
-
-        AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setCountry(country);
-        addressEntity.setProvince(province);
-        addressEntity.setStreet(street);
-        addressEntity.setZip(zipcode);
-        addressEntity.setPhone(phone);
-        /*call createAccount(accountName, accountInfo)
-         *service method to determine if this account
-         * already exists, if exists it fails to create
-         * if not exists, insert the account information
-         * to DB(user table and address table both)
+        String confirmPass = request.getParameter("confirm_password");
+        /*
+            we should validate the register form information in advance
          */
-        OrderProcessService orderProcessService = new OrderProcessService();
-        boolean flag = orderProcessService.CreateAccount(userEntity, addressEntity);
-        if (!flag) {
+        if (firstName != null && firstName.length() > 0 &&
+            lastName != null && lastName.length() > 0 &&
+            emailUserName != null && emailUserName.length() > 0 &&
+            emailUserName.indexOf("@") > 0 &&
+            emailUserName.indexOf("@") < emailUserName.length() - 1 &&
+            country != null && country.length() > 0 &&
+            province != null && province.length() > 0 &&
+            street != null && street.length() > 0 &&
+            zipcode != null && zipcode.length() > 0 &&
+            phone != null && phone.length() > 0 &&
+            password != null && password.length() >= 6 &&
+            confirmPass != null && confirmPass.length() >= 6 &&
+            password.equals(confirmPass) && isNumeric(phone))
+        {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUsername(emailUserName);
+            userEntity.setFirstname(firstName);
+            userEntity.setLastname(lastName);
+            userEntity.setPassword(password);
+
+            AddressEntity addressEntity = new AddressEntity();
+            addressEntity.setCountry(country);
+            addressEntity.setProvince(province);
+            addressEntity.setStreet(street);
+            addressEntity.setZip(zipcode);
+            addressEntity.setPhone(phone);
+            /*call createAccount(accountName, accountInfo)
+             *service method to determine if this account
+             * already exists, if exists it fails to create
+             * if not exists, insert the account information
+             * to DB(user table and address table both)
+             */
+            OrderProcessService orderProcessService = new OrderProcessService();
+            boolean flag = orderProcessService.CreateAccount(userEntity, addressEntity);
+            if (!flag)//the accountName already exists, fail to create account
+            {
+                System.out.println("The accountName already exists!");
+                response.sendRedirect("/pages/register.jsp");
+            } else
+            {
+                System.out.println("Register successfully!");
+                response.sendRedirect("/pages/signin.jsp");
+            }
+        } else {//register fails, invalid information
+            System.out.println("Register fails, invalid information!");
             response.sendRedirect("/pages/register.jsp");
-        } else {
-            response.sendRedirect("/pages/signin.jsp");
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         doPost(request, response);
+    }
+    /*
+        A function to determine if the String is numeric
+     */
+    public boolean isNumeric(String str)
+    {
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (!Character.isDigit(str.charAt(i)))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

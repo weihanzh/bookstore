@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/DisplayShoppingCartServlet")
+/*
+    Call this servlet to display all books in the shopping cart
+    as well as the quantities of books
+ */
 public class DisplayShoppingCartServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

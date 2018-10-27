@@ -15,25 +15,41 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/ConfirmOrderServlet")
+/*
+    Calls this servlet to verify billing and shipping information
+    and confirm the order
+ */
 public class ConfirmOrderServlet extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        // every 5th request is refused on the website
-        HttpSession hs = request.getSession();
-        int orderid = (int) hs.getAttribute("orderid");
-        List<BookCartCombine> bookCartCombineList = (List<BookCartCombine>)hs.getAttribute("bookcartcomblist");
-        bookCartCombineList.clear();
-        hs.setAttribute("bookcartcomblist", bookCartCombineList);
-        List<ShoppingCartEntity> shoppingCartEntityList = (List<ShoppingCartEntity>) hs.getAttribute("shoppingcartlist");
-        shoppingCartEntityList.clear();
-        hs.setAttribute("shoppingcartlist", shoppingCartEntityList);
-        OrderProcessService orderProcessService = new OrderProcessService();
-        boolean flag = orderProcessService.confirmOrder(orderid);
-        if (flag) {
-            response.sendRedirect("/pages/success.jsp");
-        } else {
-            response.sendRedirect("/pages/fail.jsp");
+        //we should validate the creditAccount and creditName in advance
+        // to proceed the payment
+        String creditAccount = request.getParameter("credit_account");
+        String creditName = request.getParameter("credit_name");
+        if (creditAccount != null && creditAccount.length() == 16
+            && creditName != null && creditName.length() > 0)
+        {
+            // every 5th request is refused on the website
+            HttpSession hs = request.getSession();
+            int orderid = (int) hs.getAttribute("orderid");
+            List<BookCartCombine> bookCartCombineList = (List<BookCartCombine>) hs.getAttribute("bookcartcomblist");
+            bookCartCombineList.clear();
+            hs.setAttribute("bookcartcomblist", bookCartCombineList);
+            List<ShoppingCartEntity> shoppingCartEntityList = (List<ShoppingCartEntity>) hs.getAttribute("shoppingcartlist");
+            shoppingCartEntityList.clear();
+            hs.setAttribute("shoppingcartlist", shoppingCartEntityList);
+            OrderProcessService orderProcessService = new OrderProcessService();
+            boolean flag = orderProcessService.confirmOrder(orderid);
+            if (flag)//request is successful
+            {
+                response.sendRedirect("/pages/success.jsp");
+            } else
+            {
+                response.sendRedirect("/pages/fail.jsp");
+            }
+        } else {//credit information incorrect
+            response.sendRedirect("/pages/checkout.jsp");
         }
     }
 

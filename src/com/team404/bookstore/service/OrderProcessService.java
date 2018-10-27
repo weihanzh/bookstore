@@ -89,7 +89,15 @@ public class OrderProcessService {
 
         shoppingCartDao = new ShoppingCartDao();
 
-        return shoppingCartDao.AddShoppingCart(shoppingCartEntity);
+        if(shoppingCartDao.GetCartItem(shoppingCartEntity.getUserid(),
+                shoppingCartEntity.getBookid()) == null) {
+            return shoppingCartDao.AddShoppingCart(shoppingCartEntity);
+        }
+
+        else {
+            return shoppingCartDao.UpdateItemQuantity(shoppingCartEntity);
+        }
+
     }
 
     /*Display customers' shopping cart contents*/
