@@ -3,7 +3,6 @@ package com.team404.bookstore.entity;
 import java.util.Objects;
 
 public class CountEntity {
-
     private int id;
     private int counts;
 
@@ -23,13 +22,13 @@ public class CountEntity {
         this.counts = counts;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CountEntity that = (CountEntity) o;
-        return counts == that.counts && id == this.id;
+        return id == that.id &&
+                counts == that.counts;
     }
 
     @Override

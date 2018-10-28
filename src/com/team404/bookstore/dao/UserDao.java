@@ -65,7 +65,7 @@ public class UserDao  {
 
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM UserEntity WHERE username = :username");
+            Query query = session.getNamedQuery("GetUserbyAccountQuery");
             query.setParameter("username", username);
             List<UserEntity> list = query.list();
             transaction.commit();

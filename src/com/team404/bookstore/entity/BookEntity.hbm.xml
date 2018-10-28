@@ -18,7 +18,7 @@
             <column name="author" sql-type="varchar(100)" length="100"/>
         </property>
         <property name="categoryid">
-            <column name="categoryid" sql-type="int(10) unsigned"/>
+            <column name="categoryid" sql-type="int(11)"/>
         </property>
         <property name="imgUrl">
             <column name="imgURL" sql-type="varchar(200)" length="200" not-null="true"/>
@@ -30,4 +30,8 @@
             <column name="publisher_year" sql-type="int(11)" not-null="true"/>
         </property>
     </class>
+
+    <query name="ListBookQuery">FROM BookEntity</query>
+    <query name="ListBookByCidQuery">FROM BookEntity WHERE categoryid = :categoryid</query>
+
 </hibernate-mapping>

@@ -21,4 +21,6 @@
             <column name="lastname" sql-type="varchar(45)" length="45"/>
         </property>
     </class>
+    
+    <query name="GetUserbyAccountQuery">FROM UserEntity WHERE username = :username</query>
 </hibernate-mapping>

@@ -22,7 +22,7 @@ public class BookDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            list = session.createQuery("FROM BookEntity").list();
+            list = session.getNamedQuery("ListBookQuery").list();
             transaction.commit();
         } catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();
@@ -41,7 +41,7 @@ public class BookDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM BookEntity WHERE categoryid = :categoryid");
+            Query query = session.getNamedQuery("ListBookByCidQuery");
             query.setParameter("categoryid", categoryid);
             list = query.list();
             transaction.commit();

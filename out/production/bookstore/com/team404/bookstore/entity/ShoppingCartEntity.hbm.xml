@@ -18,4 +18,12 @@
             <column name="quantity" sql-type="int(11)"/>
         </property>
     </class>
+
+    <query name="getCartQuery">FROM ShoppingCartEntity WHERE userid = :userid</query>
+    <query name="DeleteItemsQuery">DELETE FROM ShoppingCartEntity WHERE id = :val</query>
+    <query name="DeleteItemsByUidQuery">DELETE FROM ShoppingCartEntity WHERE userid = :userid</query>
+    <query name="DeleteItemByIdQuery">DELETE FROM ShoppingCartEntity WHERE id = :id</query>
+    <query name="GetCartItemQuery">FROM ShoppingCartEntity WHERE userid = :userid AND bookid = :bookid</query>
+    <query name="UpdateItemQuantityQuery">UPDATE ShoppingCartEntity SET quantity = :quantity WHERE id = :id</query>
+
 </hibernate-mapping>

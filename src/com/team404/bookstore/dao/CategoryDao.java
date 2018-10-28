@@ -40,7 +40,7 @@ public class CategoryDao {
         List<CategoryEntity> list = null;
         try {
             transaction = session.beginTransaction();
-            list = session.createQuery("FROM CategoryEntity ").list();
+            list = session.getNamedQuery("ListCategoryQuery").list();
             transaction.commit();
         } catch (HibernateException e) {
             if (transaction!=null) transaction.rollback();

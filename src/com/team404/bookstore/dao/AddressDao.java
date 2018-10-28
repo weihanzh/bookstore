@@ -42,7 +42,7 @@ public class AddressDao {
         AddressEntity addressEntity = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM AddressEntity WHERE userid = :userid");
+            Query query = session.getNamedQuery("getAddressByUidQuery");
             query.setParameter("userid", userid);
             List<AddressEntity> list = query.list();
             transaction.commit();

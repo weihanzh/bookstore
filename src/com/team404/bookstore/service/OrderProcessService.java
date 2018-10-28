@@ -57,7 +57,9 @@ public class OrderProcessService {
         }
         return flag;
     }
-
+    /*
+        Get UserEntity by username provided
+     */
     public UserEntity GetUserByAccount(String username) {
         userDao = new UserDao();
 
@@ -212,7 +214,9 @@ public class OrderProcessService {
 
         return orderDao.GetOdersByUid(userid);
     }
-
+    /*
+        Get a list of OrderBookEntity based on orderid
+     */
     public List<OrderBookEntity> GetOrderBooks (int orderid) {
         orderBookDao = new OrderBookDao();
 

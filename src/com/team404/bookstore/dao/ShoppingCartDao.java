@@ -42,7 +42,7 @@ public class ShoppingCartDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM ShoppingCartEntity WHERE userid = :userid");
+            Query query = session.getNamedQuery("getCartQuery");
             query.setParameter("userid", userid);
             list = query.list();
             transaction.commit();
@@ -63,7 +63,7 @@ public class ShoppingCartDao {
         try {
             transaction = session.beginTransaction();
             for(Integer val : idList) {
-                Query query = session.createQuery("DELETE FROM ShoppingCartEntity WHERE id = :val");
+                Query query = session.getNamedQuery("DeleteItemsQuery");
                 query.setParameter("val", val);
                 query.executeUpdate();
                 transaction.commit();
@@ -86,7 +86,7 @@ public class ShoppingCartDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("DELETE FROM ShoppingCartEntity WHERE userid = :userid");
+            Query query = session.getNamedQuery("DeleteItemsByUidQuery");
             query.setParameter("userid", userid);
             query.executeUpdate();
             transaction.commit();
@@ -107,7 +107,7 @@ public class ShoppingCartDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("DELETE FROM ShoppingCartEntity WHERE id = :id");
+            Query query = session.getNamedQuery("DeleteItemByIdQuery");
             query.setParameter("id", id);
             query.executeUpdate();
             transaction.commit();
@@ -128,7 +128,7 @@ public class ShoppingCartDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM ShoppingCartEntity WHERE userid = :userid AND bookid = :bookid");
+            Query query = session.getNamedQuery("GetCartItemQuery");
             query.setParameter("userid", userid);
             query.setParameter("bookid", bookid);
             List<ShoppingCartEntity> list = query.list();
@@ -156,7 +156,7 @@ public class ShoppingCartDao {
 
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("UPDATE ShoppingCartEntity SET quantity = :quantity WHERE id = :id");
+            Query query = session.getNamedQuery("UpdateItemQuantityQuery");
             query.setParameter("quantity", shoppingCartEntity.getQuantity()+previouQuantity);
             query.setParameter("id", shoppingCartEntity1.getId());
             int result = query.executeUpdate();

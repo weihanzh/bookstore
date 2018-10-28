@@ -1,11 +1,5 @@
 package com.team404.bookstore.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -21,10 +15,6 @@ public class OrderEntity {
     private double aftertaxprice;
     private int amount;
 
-    //    @Id
-//    @GeneratedValue(generator="increment")
-//    @GenericGenerator(name="increment", strategy = "increment")
-//    @Column(name = "id")
     public int getId() {
         return id;
     }

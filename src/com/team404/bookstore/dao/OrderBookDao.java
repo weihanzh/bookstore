@@ -36,7 +36,7 @@ public class OrderBookDao {
         List<OrderBookEntity> list = null;
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM OrderBookEntity WHERE orderid = :orderid");
+            Query query = session.getNamedQuery("GetOrderBookByOidQuery");
             query.setParameter("orderid", orderid);
             list = query.list();
             transaction.commit();

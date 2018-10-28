@@ -39,7 +39,7 @@ public class OrderDao {
 
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM OrderEntity WHERE userid = :userid");
+            Query query = session.getNamedQuery("GetOdersByUidQuery");
             query.setParameter("userid", userid);
             list = query.list();
             transaction.commit();
@@ -58,8 +58,8 @@ public class OrderDao {
 
         try {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("UPDATE OrderEntity SET status = :status WHERE id = :id");
-            if(flag == true) {
+            Query query = session.getNamedQuery("UpdateOrderStatusQuery");
+            if(flag) {
                 query.setParameter("status", "Success");
             } else {
                 query.setParameter("status", "Failed");

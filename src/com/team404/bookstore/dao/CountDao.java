@@ -23,12 +23,6 @@ public class CountDao {
 
         try {
             transaction = session.beginTransaction();
-//            Query query = session.createQuery("FROM CountEntity ");
-//            List<CountEntity> list = query.list();
-//            transaction.commit();
-//            if(list.size() != 0) {
-//                countEntity = list.get(0);
-//            }
             countEntity = (CountEntity) session.get(CountEntity.class, 1);
             transaction.commit();
 

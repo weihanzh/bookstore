@@ -6,10 +6,12 @@
 
     <class name="com.team404.bookstore.entity.CategoryEntity" table="Category" schema="bookstore">
         <id name="id">
-            <column name="id" sql-type="int(10)"/>
+            <column name="id" sql-type="int(11)"/>
         </id>
         <property name="category">
             <column name="category" sql-type="varchar(200)" length="200"/>
         </property>
     </class>
+
+    <query name="ListCategoryQuery">FROM CategoryEntity </query>
 </hibernate-mapping>

@@ -1,13 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-mapping PUBLIC
-        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.team404.bookstore.entity.OrderEntity" table="Orders" schema="test">
+    <class name="com.team404.bookstore.entity.OrderEntity" table="Orders" schema="bookstore">
         <id name="id">
             <column name="id" sql-type="int(11)"/>
-            <generator class="identity" />
         </id>
         <property name="userid">
             <column name="userid" sql-type="int(11)"/>
@@ -37,4 +36,7 @@
             <column name="amount" sql-type="int(11)"/>
         </property>
     </class>
+
+    <query name="GetOdersByUidQuery">FROM OrderEntity WHERE userid = :userid</query>
+    <query name="UpdateOrderStatusQuery">UPDATE OrderEntity SET status = :status WHERE id = :id</query>
 </hibernate-mapping>
